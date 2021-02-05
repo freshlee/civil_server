@@ -1,0 +1,44 @@
+目前环境：
+    10.253.9.212(master)
+    10.253.8.160(slave)
+    name/pass: root Huawei@123
+
+安装部署:
+
+    cd /home/software (进入atlasdb安装文件根目录)
+
+    master部署，执行:
+
+    ./02initprimarydatabase.sh --ipaddr=10.253.9.212 --standbyip=10.253.8.160 --port=15432 --dbadminuser=atlasdb --memory_Gb=2 --type=async --password=laoying000
+
+    slave部署，执行:
+
+    ./03initstandbydatabase.sh --ipaddr=10.253.9.212 --standbyip=10.253.8.160 --port=15432 --memory_Gb=2 --type=a
+
+    备注（主从都适用）：
+    1. --ipaddr填写主库ip --standbyip填写从库ip
+
+    2.若提示找不到脚本文件。建议执行：
+    chmod +x *.sh
+
+    3.若执行报错，提示/data/atlasdb已经存在，则删除/data/atlasdb后重新执行
+
+    4.执行完毕后，会执行reboot命令，待系统重启后。若查询不到atlasdb进程，则，进入 atlasdb用户 (su - atlasdb)
+    执行：
+    /home/atlasdb/atlasdb/bin/pg_ctl -D /data/atlasdb -l logfile start
+
+安装验证：
+    执行: ps -ef|grep atlasdb，若查到atlasdb，则说明部署成功
+    或者进入数据：
+    cd /home/atlasdb/atlasdb/bin
+    export PGPORT=15432
+    ./psql -h localhost -U atlasdb(进入数据库)
+
+    退出：exit;
+
+    主从库验证：
+    进入atalsdb后，执行：select client_addr,sync_state from pg_stat_replication;
+    若又数据并且 sync_state值为async。则改行为从数据库。本库为主库
+    若无无数据，此库为从库
+
+    
