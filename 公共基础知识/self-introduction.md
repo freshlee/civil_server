@@ -1,5 +1,5 @@
 good morning , interviewer
-im lee, graduated in heu, located in northeast of china;
+im lee, graduated from heu, located in northeast of china;
 i was work for SAMSUNG Electronic as emiconductor engineer, responsible for Means of production supply, and infrastructure building;
 after one year passed, i thought IT is more interesting to me; so i self learning to begin my IT career;
 my first it job is fontend engineer in MIDEA IT support group, developer the system of human resources management; i major in new employee register module.
